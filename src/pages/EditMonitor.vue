@@ -384,6 +384,12 @@
                                 </div>
                             </template>
 
+                            <!-- cron -->
+                            <div class="my-3">
+                                <label for="cron" class="form-label">{{ $t("Cronn") }}</label>
+                                <input id="cron" v-model="monitor.cron" type="string" class="form-control" >
+                            </div>
+
                             <!-- Interval -->
                             <div class="my-3">
                                 <label for="interval" class="form-label">{{ $t("Heartbeat Interval") }} ({{ $t("checkEverySecond", [ monitor.interval ]) }})</label>

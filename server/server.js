@@ -741,6 +741,7 @@ let needSetup = false;
                 bean.tlsCa = monitor.tlsCa;
                 bean.tlsCert = monitor.tlsCert;
                 bean.tlsKey = monitor.tlsKey;
+                bean.cron = monitor.cron; //jimmy
                 bean.interval = monitor.interval;
                 bean.retryInterval = monitor.retryInterval;
                 bean.resendInterval = monitor.resendInterval;
