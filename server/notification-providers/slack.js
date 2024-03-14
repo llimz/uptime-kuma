@@ -4,13 +4,14 @@ const { setSettings, setting } = require("../util-server");
 const { getMonitorRelativeURL, UP } = require("../../src/util");
 
 class Slack extends NotificationProvider {
-
     name = "slack";
 
     /**
      * Deprecated property notification.slackbutton
      * Set it as primary base url if this is not yet set.
+     * @deprecated
      * @param {string} url The primary base URL to use
+     * @returns {Promise<void>}
      */
     static async deprecateURL(url) {
         let currentPrimaryBaseURL = await setting("primaryBaseURL");
@@ -25,8 +26,11 @@ class Slack extends NotificationProvider {
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     async send(notification, msg, monitorJSON = null, heartbeatJSON = null) {
-        let okMsg = "Sent Successfully.";
+        const okMsg = "Sent Successfully.";
 
         if (notification.slackchannelnotify) {
             msg += " <!channel>";
