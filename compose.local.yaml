@@ -1,0 +1,17 @@
+services:
+  uptime-kuma:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    image: uptime-kuma-local:dev
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "3001:3001"
+    networks:
+      - wp_network
+
+networks:
+  wp_network:
+    external: true
