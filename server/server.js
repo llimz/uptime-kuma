@@ -255,6 +255,9 @@ let needSetup = false;
         log.debug("entry", `Request Domain: ${hostname}`);
 
         const uptimeKumaEntryPage = server.entryPage;
+        const userAgent = request.headers["user-agent"] || "";
+        const isMobileOrTablet = /Mobi|Android|iPhone|iPad|iPod|Tablet/i.test(userAgent);
+
         if (hostname in StatusPage.domainMappingList) {
             log.debug("entry", "This is a status page domain");
 
@@ -262,6 +265,8 @@ let needSetup = false;
             await StatusPage.handleStatusPageResponse(response, server.indexHTML, slug);
         } else if (uptimeKumaEntryPage && uptimeKumaEntryPage.startsWith("statusPage-")) {
             response.redirect("/status/" + uptimeKumaEntryPage.replace("statusPage-", ""));
+        } else if (isMobileOrTablet) {
+            response.redirect("/list");
         } else {
             response.redirect("/dashboard");
         }
