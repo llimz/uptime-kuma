@@ -22,6 +22,7 @@ export default {
         // 1. Matched status Page domain name
         // 2. Vue Frontend Dev
         // 3. Vue Frontend Dev (not setup database yet)
+        const defaultRoute = this.$root.isMobile ? "/list" : "/dashboard";
         let res;
         try {
             res = (await axios.get("/api/entry-page")).data;
@@ -36,12 +37,12 @@ export default {
                     this.$router.push("/status/" + entryPage.replace("statusPage-", ""));
                 } else {
                     // should the old setting style still exist here?
-                    this.$router.push("/dashboard");
+                    this.$router.push(defaultRoute);
                 }
             } else if (res.type === "setup-database") {
                 this.$router.push("/setup-database");
             } else {
-                this.$router.push("/dashboard");
+                this.$router.push(defaultRoute);
             }
         } catch (e) {
             alert("Cannot connect to the backend server. Did you start the backend server? (npm run start-server-dev)");

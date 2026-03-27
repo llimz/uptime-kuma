@@ -156,7 +156,7 @@ export default {
             windowTop: 0,
             bulkActionInProgress: false,
             filterState: {
-                status: null,
+                status: this.$route.path === "/list" ? [0] : null,
                 active: null,
                 tags: null,
             },
