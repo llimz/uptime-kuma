@@ -3,12 +3,30 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.local
+    container_name: uptime-kuma
     image: uptime-kuma-local:dev
     restart: unless-stopped
     volumes:
       - ./data:/app/data
     ports:
       - "3001:3001"
+    networks:
+      - wp_network
+
+  mariadb:
+    image: mariadb:10.6
+    container_name: uptime-kuma-mariadb
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=RootSecretPwd
+      - MARIADB_DATABASE=kuma
+      - MARIADB_USER=kuma
+      - MARIADB_PASSWORD=SuperSecretPwd
+    volumes:
+      - ./mariadb/data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
     networks:
       - wp_network
 
